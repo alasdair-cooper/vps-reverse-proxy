@@ -19,8 +19,11 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git*' --exclude='artifacts/' --exclude='obj/' ./ $SSH_DESTINATION:~/csharplang-ldm-feed/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git*' --exclude='artifacts/' --exclude='obj/' ./ $SSH_DESTINATION:~/nginx-reverse-proxy/
           
       - name: Deploy with Podman Compose
-        run: |
-          ssh -o StrictHostKeyChecking=no $SSH_DESTINATION "podman compose up --force-recreate --build -d && podman image prune -f"
+        run: >
+          ssh -o StrictHostKeyChecking=no $SSH_DESTINATION "
+          cd ~/nginx-reverse-proxy
+          && podman compose up --force-recreate --build -d 
+          && podman image prune -f"
