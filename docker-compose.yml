@@ -9,3 +9,7 @@ services:
     networks:
       - default
       - aspire
+networks:
+  aspire:
+    driver: bridge
+    external: true
