@@ -12,7 +12,7 @@ jobs:
     env:
       VPS_SSH_DESTINATION: ${{ vars.VPS_SSH_DESTINATION }}
       VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-      VPS_DEPLOY_DIR: ~/${{ github.repository }}/
+      VPS_DEPLOY_DIR: ~/${{ github.repository }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
