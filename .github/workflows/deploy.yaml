@@ -24,7 +24,7 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz -e --mkpath "ssh -o StrictHostKeyChecking=no" --exclude='.git*' ./ ${{ env.VPS_SSH_DESTINATION }}:${{ env.VPS_DEPLOY_DIR }}
+          rsync -avz -e --mkpath ${{ env.VPS_DEPLOY_DIR }} "ssh -o StrictHostKeyChecking=no" --exclude='.git*' ./ ${{ env.VPS_SSH_DESTINATION }}:${{ env.VPS_DEPLOY_DIR }}
 
       - name: Deploy with Podman Compose
         run: >
