@@ -24,11 +24,11 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git*' ./ $VPS_SSH_DESTINATION:$VPS_DEPLOY_DIR
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git*' ./ ${{ env.VPS_SSH_DESTINATION }}:${{ env.VPS_DEPLOY_DIR }}
           
       - name: Deploy with Podman Compose
         run: >
-          ssh -o StrictHostKeyChecking=no $VPS_SSH_DESTINATION "
-          cd $VPS_DEPLOY_DIR
+          ssh -o StrictHostKeyChecking=no ${{ env.VPS_SSH_DESTINATION }} "
+          cd ${{ env.VPS_DEPLOY_DIR }}
           && podman compose up --force-recreate --build -d 
           && podman image prune -f"
